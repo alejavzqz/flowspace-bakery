@@ -1,10 +1,11 @@
-- cookie_ready = cookie.ready?
-1 cookie with #{cookie.fillings || "no fillings"}
-#oven-cookie-ready{class: ('hidden' if !cookie_ready)}
+- cookies_ready = @oven.cookies_ready?
+#{@oven.cookies.count} cookie with #{@oven.cookies.first.fillings || "no fillings"}
+
+#oven-cookie-ready{class: ('hidden' if !cookies_ready)}
   (Your Cookie is Ready)
   = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
 
-- if !cookie_ready
+- if !cookies_ready
   :javascript
 
     const poller = {
@@ -14,10 +15,10 @@
       },
 
       checkStatus: function () {        
-        fetch('/api/cookies/#{cookie.id}')
+        fetch('/api/ovens/#{@oven.id}')
           .then(response => response.json())
           .then(data => {
-            if (data.ready_at) {
+            if (data.cookies_ready) {
               clearInterval(interval)
               $('#oven-cookie-ready').removeClass('hidden')
             }

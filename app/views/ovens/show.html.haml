@@ -3,8 +3,7 @@
 .cookie-info
   Cookie in oven:
   - if @oven.cookies.exists?
-    - @oven.cookies.each do |cookie|
-      = render 'oven_cookie', cookie: cookie
+    = render 'oven_cookies'
   - else
     None
 
