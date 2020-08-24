@@ -1,5 +1,7 @@
 %h3= @oven.name
 
+= render 'prepare_cookie', klass: 'hide-for-medium-up'
+
 .cookie-info
   Cookie in oven:
   - if @oven.cookies.exists?
@@ -9,4 +11,4 @@
 
 %br
 
-= link_to "Prepare Cookie", new_oven_cookies_path(@oven), class: 'button'
+= render 'prepare_cookie', klass: 'show-for-medium-up'
