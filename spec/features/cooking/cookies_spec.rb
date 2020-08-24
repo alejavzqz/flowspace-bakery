@@ -1,4 +1,6 @@
 feature 'Cooking cookies' do
+  before { allow_any_instance_of(Cookie).to receive(:ready?).and_return(true) }
+
   scenario 'Cooking a single cookie' do
     user = create_and_signin
     oven = user.ovens.first
@@ -54,7 +56,6 @@ feature 'Cooking cookies' do
       click_link_or_button 'Prepare Cookie'
       fill_in 'Fillings', with: 'Chocolate Chip'
       click_button 'Mix and bake'
-
       click_button 'Retrieve Cookie'
     end
 
