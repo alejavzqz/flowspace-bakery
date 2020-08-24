@@ -87,6 +87,11 @@ describe CookiesController do
           expect(Cookie.last.storage).to eq(oven)
         end
 
+        it 'enqueues a CookCookieJob' do
+          expect(CookCookieJob).to receive(:perform_later)
+          the_request
+        end
+
         it "redirects to the oven" do
           the_request
           expect(response).to redirect_to oven_path(oven)
