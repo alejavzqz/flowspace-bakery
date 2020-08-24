@@ -15,4 +15,9 @@ Rails.application.routes.draw do
       post :empty
     end
   end
+
+  namespace :api do
+    resources :cookies, only: [:show]
+    resources :ovens, only: [:show]
+  end
 end

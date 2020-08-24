@@ -2,11 +2,8 @@
 
 .cookie-info
   Cookie in oven:
-  - if @oven.cookie
-    1 cookie with #{@oven.cookie.fillings || "no fillings"}
-    - if @oven.cookie.ready?
-      (Your Cookie is Ready)
-      = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
+  - if @oven.cookies.exists?
+    = render 'oven_cookies'
   - else
     None
 

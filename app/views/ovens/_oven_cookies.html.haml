@@ -1,0 +1,32 @@
+- cookies_ready = @oven.cookies_ready?
+#{@oven.cookies.count} cookie with #{@oven.cookies.first.fillings || "no fillings"}
+
+#oven-cookie-ready{class: ('hidden' if !cookies_ready)}
+  (Your Cookie is Ready)
+  = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
+
+- if !cookies_ready
+  :javascript
+
+    const poller = {
+      interval: undefined,
+      setup: function () {
+        interval = setInterval(this.checkStatus, 1000)
+      },
+
+      checkStatus: function () {        
+        fetch('/api/ovens/#{@oven.id}')
+          .then(response => response.json())
+          .then(data => {
+            if (data.cookies_ready) {
+              clearInterval(interval)
+              $('#oven-cookie-ready').removeClass('hidden')
+            }
+          })
+          .catch((error) => {
+            clearInterval(interval)
+          })
+      }
+    }
+
+    poller.setup()
