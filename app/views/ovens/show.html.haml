@@ -2,8 +2,9 @@
 
 .cookie-info
   Cookie in oven:
-  - if @oven.cookie
-    = render 'oven_cookie'
+  - if @oven.cookies.exists?
+    - @oven.cookies.each do |cookie|
+      = render 'oven_cookie', cookie: cookie
   - else
     None
 

@@ -1,5 +1,5 @@
-- cookie_ready = @oven.cookie.ready?
-1 cookie with #{@oven.cookie.fillings || "no fillings"}
+- cookie_ready = cookie.ready?
+1 cookie with #{cookie.fillings || "no fillings"}
 #oven-cookie-ready{class: ('hidden' if !cookie_ready)}
   (Your Cookie is Ready)
   = button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny'
@@ -14,7 +14,7 @@
       },
 
       checkStatus: function () {        
-        fetch('/api/cookies/#{@oven.cookie.id}')
+        fetch('/api/cookies/#{cookie.id}')
           .then(response => response.json())
           .then(data => {
             if (data.ready_at) {
